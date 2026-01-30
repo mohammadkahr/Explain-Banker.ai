@@ -1,6 +1,10 @@
 # Explain-Banker.ai
 ### Explainable AI for Smart Banking Decisions
-![Project Banner](screenshots/1.jpg)
+<p align="center">
+ 
+   ![Project Banner](screenshots/1.jpg)
+
+</p>
 
 ##  Overview
 **Explain-Banker.ai** is an advanced intelligent dashboard designed for the banking sector to predict customer behavior (Term Deposit Subscription) and, more importantly, **explain why**.
