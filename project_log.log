@@ -1,0 +1,71 @@
+2026-01-30 21:38:52,857 - INFO - 🔓 Auto-detected VPN Proxy: http://127.0.0.1:10808
+2026-01-30 21:38:58,162 - INFO - ✅ Gemini AI Connected Successfully.
+2026-01-30 21:39:09,802 - INFO - 📥 Loading resources...
+2026-01-30 21:39:09,898 - INFO - ✅ Model Loaded: RandomForest
+2026-01-30 21:39:09,920 - INFO - ✅ Model Loaded: SVM
+2026-01-30 21:39:09,939 - INFO - ✅ Model Loaded: MLP_1Layer
+2026-01-30 21:39:09,939 - INFO - ✅ Model Loaded: MLP_2Layer
+2026-01-30 21:39:09,944 - INFO - 🚀 Starting Flask Server...
+2026-01-30 21:39:12,100 - INFO - 🔒 Manual Proxy set from .env
+2026-01-30 21:39:15,431 - INFO - ✅ Gemini AI Connected Successfully.
+2026-01-30 21:39:24,342 - INFO - 📥 Loading resources...
+2026-01-30 21:39:24,444 - INFO - ✅ Model Loaded: RandomForest
+2026-01-30 21:39:24,449 - INFO - ✅ Model Loaded: SVM
+2026-01-30 21:39:24,460 - INFO - ✅ Model Loaded: MLP_1Layer
+2026-01-30 21:39:24,464 - INFO - ✅ Model Loaded: MLP_2Layer
+2026-01-30 21:39:24,467 - INFO - 🚀 Starting Flask Server...
+2026-01-30 21:39:38,303 - INFO - 🔍 Analyzing Sample ID: 1117 with Model: MLP_1Layer
+2026-01-30 21:39:40,401 - INFO - 🤖 Querying Gemini API...
+2026-01-30 21:42:56,105 - INFO - 🔍 Analyzing Sample ID: 837 with Model: SVM
+2026-01-30 21:43:18,039 - INFO - 🤖 Querying Gemini API...
+2026-01-30 21:43:33,291 - INFO - ✅ Gemini Response Received.
+2026-01-30 21:43:34,903 - INFO - ✅ Gemini Response Received.
+2026-01-30 21:47:01,113 - INFO - 🔍 Analyzing Sample ID: 8439 with Model: RandomForest
+2026-01-30 21:47:01,715 - ERROR - SHAP Failed: The waterfall plot can currently only plot a single explanation, but a matrix of explanations (shape (1, 42, 2)) was passed! Perhaps try `shap.plots.waterfall(shap_values[0])` or for multi-output models, try `shap.plots.waterfall(shap_values[0, 0])`.
+2026-01-30 21:47:03,130 - INFO - 🤖 Querying Gemini API...
+2026-01-30 21:47:10,156 - INFO - ✅ Gemini Response Received.
+2026-01-30 21:47:31,940 - INFO - 🔍 Analyzing Sample ID: 406 with Model: RandomForest
+2026-01-30 21:47:32,588 - ERROR - SHAP Failed: The waterfall plot can currently only plot a single explanation, but a matrix of explanations (shape (1, 42, 2)) was passed! Perhaps try `shap.plots.waterfall(shap_values[0])` or for multi-output models, try `shap.plots.waterfall(shap_values[0, 0])`.
+2026-01-30 21:47:34,448 - INFO - 🤖 Querying Gemini API...
+2026-01-30 21:47:39,310 - INFO - ✅ Gemini Response Received.
+2026-01-30 21:50:50,770 - INFO - 🔓 Auto-detected VPN Proxy: http://127.0.0.1:10808
+2026-01-30 21:51:05,009 - INFO - ✅ Gemini AI Connected Successfully.
+2026-01-30 21:51:38,501 - INFO - 📥 Loading resources...
+2026-01-30 21:51:38,591 - INFO - ✅ Model Loaded: RandomForest
+2026-01-30 21:51:38,591 - INFO - ✅ Model Loaded: SVM
+2026-01-30 21:51:38,607 - INFO - ✅ Model Loaded: MLP_1Layer
+2026-01-30 21:51:38,621 - INFO - ✅ Model Loaded: MLP_2Layer
+2026-01-30 21:51:38,621 - INFO - 🚀 Starting Flask Server...
+2026-01-30 21:51:40,818 - INFO - 🔒 Manual Proxy set from .env
+2026-01-30 21:51:43,944 - INFO - ✅ Gemini AI Connected Successfully.
+2026-01-30 21:51:53,051 - INFO - 📥 Loading resources...
+2026-01-30 21:51:53,163 - INFO - ✅ Model Loaded: RandomForest
+2026-01-30 21:51:53,168 - INFO - ✅ Model Loaded: SVM
+2026-01-30 21:51:53,181 - INFO - ✅ Model Loaded: MLP_1Layer
+2026-01-30 21:51:53,186 - INFO - ✅ Model Loaded: MLP_2Layer
+2026-01-30 21:51:53,187 - INFO - 🚀 Starting Flask Server...
+2026-01-30 21:52:25,057 - INFO - 🔍 Analyzing Sample ID: 5157 with Model: RandomForest
+2026-01-30 21:52:25,674 - ERROR - SHAP Failed: The waterfall plot can currently only plot a single explanation, but a matrix of explanations (shape (1, 42, 2)) was passed! Perhaps try `shap.plots.waterfall(shap_values[0])` or for multi-output models, try `shap.plots.waterfall(shap_values[0, 0])`.
+2026-01-30 21:52:27,390 - INFO - 🤖 Querying Gemini API...
+2026-01-30 21:52:33,390 - INFO - ✅ Gemini Response Received.
+2026-01-30 21:53:22,183 - INFO - 🔓 Auto-detected VPN Proxy: http://127.0.0.1:10808
+2026-01-30 21:53:47,546 - INFO - 🔓 Auto-detected VPN Proxy: http://127.0.0.1:10808
+2026-01-30 21:53:51,096 - INFO - ✅ Gemini AI Connected Successfully.
+2026-01-30 21:53:59,793 - INFO - 📥 Loading resources...
+2026-01-30 21:53:59,952 - INFO - ✅ Model Loaded: RandomForest
+2026-01-30 21:53:59,952 - INFO - ✅ Model Loaded: SVM
+2026-01-30 21:53:59,983 - INFO - ✅ Model Loaded: MLP_1Layer
+2026-01-30 21:53:59,987 - INFO - ✅ Model Loaded: MLP_2Layer
+2026-01-30 21:53:59,987 - INFO - 🚀 Starting Flask Server...
+2026-01-30 21:54:02,438 - INFO - 🔒 Manual Proxy set from .env
+2026-01-30 21:54:05,482 - INFO - ✅ Gemini AI Connected Successfully.
+2026-01-30 21:54:14,502 - INFO - 📥 Loading resources...
+2026-01-30 21:54:14,624 - INFO - ✅ Model Loaded: RandomForest
+2026-01-30 21:54:14,630 - INFO - ✅ Model Loaded: SVM
+2026-01-30 21:54:14,646 - INFO - ✅ Model Loaded: MLP_1Layer
+2026-01-30 21:54:14,646 - INFO - ✅ Model Loaded: MLP_2Layer
+2026-01-30 21:54:14,646 - INFO - 🚀 Starting Flask Server...
+2026-01-30 21:54:24,859 - INFO - 🔍 Analyzing Sample ID: 1360 with Model: RandomForest
+2026-01-30 21:54:25,489 - ERROR - SHAP Failed: The waterfall plot can currently only plot a single explanation, but a matrix of explanations (shape (1, 42, 2)) was passed! Perhaps try `shap.plots.waterfall(shap_values[0])` or for multi-output models, try `shap.plots.waterfall(shap_values[0, 0])`.
+2026-01-30 21:54:27,277 - INFO - 🤖 Querying Gemini API...
+2026-01-30 21:54:30,700 - INFO - ✅ Gemini Response Received.

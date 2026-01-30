@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Marketing XAI Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- HIGH READABILITY THEME --- */
+        :root {
+            --bg-body: #1a1a2e;
+            --bg-card: #16213e;
+            --text-main: #ffffff;
+            --text-muted: #e0e0e0;
+            --accent: #4cc9f0;
+            --border: #303a52;
+            --highlight: #f72585;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Roboto', sans-serif; /* English font */
+            overflow-x: hidden;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .list-group-item {
+            background-color: #0f3460;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            margin-bottom: 5px;
+            border-radius: 4px !important;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .list-group-item:hover {
+            background-color: #1a1a2e;
+            border-color: var(--accent);
+        }
+        .list-group-item.active-item {
+            background-color: var(--accent);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--accent);
+        }
+
+        .nav-tabs { border-bottom: 1px solid var(--border); }
+        .nav-tabs .nav-link {
+            color: var(--text-muted);
+            border: none;
+            margin-right: 5px;
+        }
+        .nav-tabs .nav-link:hover { color: var(--accent); }
+        .nav-tabs .nav-link.active {
+            background-color: var(--bg-card);
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+        .nav-tabs .nav-link.gemini-tab.active {
+            color: var(--highlight);
+            border-bottom: 3px solid var(--highlight);
+        }
+
+        .plot-box {
+            background: #2b2d42;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .plot-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* GEMINI BOX RTL FIX */
+        .gemini-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #fff;
+            direction: rtl; /* Right to Left */
+            text-align: right;
+            font-family: 'Vazirmatn', sans-serif; /* Persian Font */
+        }
+        .gemini-box h3 { color: var(--highlight); margin-top: 15px; font-size: 1.3rem; }
+        .gemini-box ul { padding-right: 20px; }
+
+        .table { color: #fff; }
+        .table-hover tbody tr:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+
+        /* IMPROVED PREDICTION BADGE */
+        .pred-badge {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 200px;
+            text-align: center;
+        }
+        .pred-badge.success { background-color: #00b894; box-shadow: 0 0 10px rgba(0, 184, 148, 0.5); }
+        .pred-badge.danger { background-color: #ff7675; box-shadow: 0 0 10px rgba(255, 118, 117, 0.5); }
+
+        .prob-container {
+            height: 10px;
+            background: #303a52;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .prob-bar {
+            height: 100%;
+            transition: width 0.8s ease;
+        }
+
+        .form-select {
+            background-color: #0f3460;
+            color: white;
+            border: 1px solid var(--border);
+        }
+        .btn-analyze {
+            background-color: var(--accent);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 10px;
+        }
+        .btn-analyze:hover { background-color: #3db8dd; }
+
+        #loading-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: none; z-index: 9999;
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Loader -->
+<div id="loading-overlay">
+    <div class="spinner-border text-info" style="width: 3rem; height: 3rem;"></div>
+    <h3 class="mt-3 text-white">Running Bank Analysis...</h3>
+    <p class="text-white-50">SHAP &bull; LIME &bull; DiCE &bull; AI Consultant</p>
+</div>
+
+<div class="container-fluid p-4">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="fw-bold text-white">
+                <i class="fas fa-university" style="color: var(--accent);"></i> Bank Marketing AI Dashboard
+            </h2>
+            <p class="text-muted">Predicting Term Deposit Subscriptions using XAI & LLM</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3">
+            <div class="card h-100">
+                <div class="card-header"><i class="fas fa-user-tag"></i> Select Customer</div>
+                <div class="card-body p-2" style="height: 550px; overflow-y: auto;">
+                    <div class="list-group">
+                        {% for row in samples %}
+                        <button class="list-group-item d-flex justify-content-between" onclick="selectSample(this, {{ row['id'] }})">
+                            <span>ID: <strong>{{ row['id'] }}</strong></span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <label class="text-white mb-1">Select Model</label>
+                    <select id="modelSelect" class="form-select mb-3">
+                        {% for m in model_list %}
+                        <option value="{{ m }}">{{ m }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" id="selectedId">
+                    <button class="btn btn-analyze w-100" onclick="runAnalysis()">
+                        <i class="fas fa-chart-line"></i> ANALYZE CUSTOMER
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <!-- Prediction Result (Fixed Visibility) -->
+            <div class="card text-center py-3">
+                <div class="card-body">
+                    <h5 class="text-muted mb-3">MODEL PREDICTION</h5>
+                    <div id="predBadge" class="pred-badge" style="background-color: #303a52;">
+                        Select a customer...
+                    </div>
+                    <div class="prob-container w-50 mx-auto">
+                        <div id="probBar" class="prob-bar" style="width: 0%;"></div>
+                    </div>
+                    <p class="mt-2 small text-muted" id="confText"></p>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="card h-100">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#shap">SHAP (Drivers)</button></li>
+                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#lime">LIME (Local)</button></li>
+                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#dice">DiCE (Changes)</button></li>
+                        <li class="nav-item ms-auto"><button class="nav-link gemini-tab" data-bs-toggle="tab" data-bs-target="#gemini"><i class="fas fa-robot"></i> AI Consultant (Persian)</button></li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <div class="tab-content">
+
+                        <!-- SHAP -->
+                        <div class="tab-pane fade show active" id="shap">
+                            <div id="shapPlot" class="plot-box">Select a sample to view feature importance.</div>
+                        </div>
+
+                        <!-- LIME -->
+                        <div class="tab-pane fade" id="lime">
+                            <div id="limePlot" class="plot-box">Select a sample to view local explanation.</div>
+                        </div>
+
+                        <!-- DiCE -->
+                        <div class="tab-pane fade" id="dice">
+                            <h5 class="text-info mb-3">Actionable Changes (Counterfactuals)</h5>
+                            <div id="diceTable" class="table-responsive">Waiting for data...</div>
+                        </div>
+
+                        <!-- Gemini -->
+                        <div class="tab-pane fade" id="gemini">
+                            <div class="gemini-box">
+                                <h4 style="color:var(--highlight); text-align: right;">
+                                    <i class="fas fa-sparkles"></i> تحلیل هوشمند بانکی
+                                </h4>
+                                <hr style="border-color: #555;">
+                                <div id="geminiContent">
+                                    <p class="text-muted text-center">پس از اجرای تحلیل، گزارش فارسی در اینجا نمایش داده می‌شود.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function selectSample(btn, id) {
+        document.querySelectorAll('.list-group-item').forEach(b => b.classList.remove('active-item'));
+        btn.classList.add('active-item');
+        document.getElementById('selectedId').value = id;
+    }
+
+    function runAnalysis() {
+        const id = document.getElementById('selectedId').value;
+        const model = document.getElementById('modelSelect').value;
+
+        if (!id) return alert("Please select a sample first.");
+
+        document.getElementById('loading-overlay').style.display = 'flex';
+        document.getElementById('geminiContent').innerHTML = "<div class='text-center mt-3'><i class='fas fa-circle-notch fa-spin fa-2x'></i><br>در حال مشورت با هوش مصنوعی...</div>";
+
+        const form = new FormData();
+        form.append("sample_id", id);
+        form.append("model_name", model);
+
+        fetch("/analyze", { method: "POST", body: form })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) throw new Error(data.error);
+
+                // 1. Prediction UI (Fixed Readability)
+                const badge = document.getElementById('predBadge');
+                const bar = document.getElementById('probBar');
+                const confText = document.getElementById('confText');
+                const conf = (data.pred_confidence * 100).toFixed(1);
+
+                bar.style.width = conf + "%";
+                confText.innerText = `Confidence Level: ${conf}%`;
+
+                if (data.is_positive) {
+                    badge.innerHTML = `<i class="fas fa-check-circle"></i> Subscribe (Yes)`;
+                    badge.className = "pred-badge success";
+                    bar.style.backgroundColor = "#00b894";
+                } else {
+                    badge.innerHTML = `<i class="fas fa-times-circle"></i> Reject (No)`;
+                    badge.className = "pred-badge danger";
+                    bar.style.backgroundColor = "#ff7675";
+                }
+
+                // 2. Plots
+                document.getElementById("shapPlot").innerHTML = data.shap_plot ?
+                    `<img src="data:image/png;base64,${data.shap_plot}" class="plot-img">` : "<p class='text-danger'>SHAP Calculation Failed</p>";
+
+                document.getElementById("limePlot").innerHTML = data.lime_plot ?
+                    `<img src="data:image/png;base64,${data.lime_plot}" class="plot-img">` : "<p class='text-danger'>LIME Calculation Failed</p>";
+
+                document.getElementById("diceTable").innerHTML = data.dice_html || "<p>No counterfactuals found.</p>";
+
+                // 3. Gemini (Persian Fade-in)
+                const geminiDiv = document.getElementById("geminiContent");
+                geminiDiv.style.opacity = 0;
+                geminiDiv.innerHTML = data.gemini_response;
+
+                let op = 0;
+                let timer = setInterval(function () {
+                    if (op >= 1) clearInterval(timer);
+                    geminiDiv.style.opacity = op;
+                    op += 0.1;
+                }, 50);
+
+            })
+            .catch(err => alert("Error: " + err.message))
+            .finally(() => {
+                document.getElementById('loading-overlay').style.display = 'none';
+            });
+    }
+</script>
+
+</body>
+</html>
